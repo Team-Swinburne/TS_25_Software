@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<Alarms Locale="English_Australia.1252" DefaultLocale="C">
+ <Alarm Name="AMS Error" Type="0" ReArmTime="20">
+  <Predicate Script="'Global Errors AMS LED Channel' [ratio] == 1"/>
+ </Alarm>
+ <Alarm Name="BSPD Error" Type="0" ReArmTime="20">
+  <Predicate Script="'Global Errors BSPD LED Channel' [ratio] == 1"/>
+ </Alarm>
+ <Alarm Name="IMD Error" Type="0" ReArmTime="20">
+  <Predicate Script="'Global Errors IMD LED Channel' [ratio] == 1"/>
+ </Alarm>
+ <Alarm Name="PDOC Error" Type="0" ReArmTime="20">
+  <Predicate Script="'Global Errors PDOC LED Channel' [ratio] == 1"/>
+ </Alarm>
+ <Alarm Name="Critical Error" Type="0" ReArmTime="20">
+  <Predicate Script="'Global Errors Critical Error' == 1"/>
+ </Alarm>
+ <Alarm Name="Throttle Error" Type="0" ReArmTime="20">
+  <Predicate Script="'Global Errors Throttle Error' == 1"/>
+ </Alarm>
+ <Alarm Name="MC Error" Type="0" ReArmTime="20">
+  <Predicate Script="'Global Errors MC Error' == 1"/>
+ </Alarm>
+ <Alarm Name="GL Not OK" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 1 Brake Module Digital ID GL OK' == 1"/>
+ </Alarm>
+ <Alarm Name="FL Inverter Error" Type="0" ReArmTime="20" Audio="2">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FL Error Info' != 0"/>
+ </Alarm>
+ <Alarm Name="FR Inverter Error" Type="0" ReArmTime="20" Audio="2">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FR Error Info' != 0"/>
+ </Alarm>
+ <Alarm Name="RL Inverter Error" Type="0" ReArmTime="20" Audio="2">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RL Error Info' != 0"/>
+ </Alarm>
+ <Alarm Name="RR Inverter Error" Type="0" ReArmTime="20" Audio="2">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RR Error Info' != 0"/>
+ </Alarm>
+ <Alarm Name="LV Level Low" Type="0" ReArmTime="20" Severity="1">
+  <Predicate Script="'Read Sensors LV System Voltage LV System Voltage' [V] &lt; 24"/>
+ </Alarm>
+ <Alarm Name="GPS Invalid" Type="0" ReArmTime="20" Severity="1">
+  <Predicate Script="'Speed Distance GPS Valid' != 1"/>
+ </Alarm>
+ <Alarm Name="TB1 CH0 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB1 Temp TB1 CH0 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB1 CH1 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB1 Temp TB1 CH1 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB1 CH2 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB1 Temp TB1 CH2 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB1 CH3 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB1 Temp TB1 CH3 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB1 CH4 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB1 Temp TB1 CH4 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB1 CH5 Warning" Type="0" ReArmTime="20" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB1 Temp TB1 CH5 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB1 CH6 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB1 Temp TB1 CH6 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB1 CH7 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB1 Temp TB1 CH7 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB2 CH0 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB2 Temp TB2 CH0 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB2 CH1 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB2 Temp TB2 CH1 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB2 CH2 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB2 Temp TB2 CH2 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB2 CH3 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB2 Temp TB2 CH3 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB2 CH4 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB2 Temp TB2 CH4 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB2 CH5 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB2 Temp TB2 CH5 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB2 CH6 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB2 Temp TB2 CH6 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB2 CH7 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB2 Temp TB2 CH7 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB3 CH0 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB3 Temp TB3 CH0 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB3 CH1 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB3 Temp TB3 CH1 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB3 CH2 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB3 Temp TB3 CH2 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB3 CH3 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB3 Temp TB3 CH3 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB3 CH4 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB3 Temp TB3 CH4 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB3 CH5 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB3 Temp TB3 CH5 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB3 CH6 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB3 Temp TB3 CH6 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB3 CH7 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB3 Temp TB3 CH7 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB4 CH0 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB4 Temp TB4 CH0 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB4 CH1 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB4 Temp TB4 CH1 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB4 CH2 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB4 Temp TB4 CH2 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB4 CH3 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB4 Temp TB4 CH3 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB4 CH4 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB4 Temp TB4 CH4 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB4 CH5 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB4 Temp TB4 CH5 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB4 CH6 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB4 Temp TB4 CH6 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB4 CH7 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB4 Temp TB4 CH7 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB5 CH0 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB5 Temp TB5 CH0 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB5 CH1 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB5 Temp TB5 CH1 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB5 CH2 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB5 Temp TB5 CH2 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB5 CH3 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB5 Temp TB5 CH3 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB5 CH4 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB5 Temp TB5 CH4 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB5 CH5 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB5 Temp TB5 CH5 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB5 CH6 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB5 Temp TB5 CH6 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="TB5 CH7 Warning" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Temp Module TB5 Temp TB5 CH7 TEMP' &gt; 50"/>
+ </Alarm>
+ <Alarm Name="FL Motor Temp High" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FL Motor Temp' [C] &gt; 115"/>
+ </Alarm>
+ <Alarm Name="FL IGBT Temp High" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FL IGBT Temp' [C] &gt; 100"/>
+ </Alarm>
+ <Alarm Name="FL Inverter Temp High" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FL Inverter Temp' [C] &gt; 45"/>
+ </Alarm>
+ <Alarm Name="FR Motor Temp High" Type="0" ReArmTime="20" Severity="1">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FR Motor Temp' [C] &gt; 115"/>
+ </Alarm>
+ <Alarm Name="FR IGBT Temp High" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FR IGBT Temp' [C] &gt; 100"/>
+ </Alarm>
+ <Alarm Name="FR Inverter Temp High" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FR Inverter Temp' [C] &gt; 45"/>
+ </Alarm>
+ <Alarm Name="RL Motor Temp High" Type="0" ReArmTime="20" Severity="1">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RL Motor Temp' [C] &gt; 115"/>
+ </Alarm>
+ <Alarm Name="RL IGBT Temp High" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RL IGBT Temp' [C] &gt; 100"/>
+ </Alarm>
+ <Alarm Name="RL Inverter Temp High" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RL Inverter Temp' [C] &gt; 45"/>
+ </Alarm>
+ <Alarm Name="RR Motor Temp High" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RR Motor Temp' [C] &gt; 115"/>
+ </Alarm>
+ <Alarm Name="RR IGBT Temp High" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RR IGBT Temp' [C] &gt; 100"/>
+ </Alarm>
+ <Alarm Name="RR Inverter Temp High" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RR Inverter Temp' [C] &gt; 45"/>
+ </Alarm>
+ <Alarm Name="FL Motor Derating" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FL Motor Temp' [C] &gt; 125"/>
+ </Alarm>
+ <Alarm Name="FL IGBT Derating" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FL IGBT Temp' [C] &gt; 115"/>
+ </Alarm>
+ <Alarm Name="FL Inverter Derating" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FL Inverter Temp' [C] &gt; 50"/>
+ </Alarm>
+ <Alarm Name="FR Motor Derating" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FR Motor Temp' [C] &gt; 125"/>
+ </Alarm>
+ <Alarm Name="FR IGBT Derating" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FR IGBT Temp' [C] &gt; 115"/>
+ </Alarm>
+ <Alarm Name="FR Inverter Derating" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter FR Inverter Temp' [C] &gt; 50"/>
+ </Alarm>
+ <Alarm Name="RL Motor Derating" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RL Motor Temp' [C] &gt; 125"/>
+ </Alarm>
+ <Alarm Name="RL IGBT Derating" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RL IGBT Temp' [C] &gt; 115"/>
+ </Alarm>
+ <Alarm Name="RL Inverter Derating" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RL Inverter Temp' [C] &gt; 50"/>
+ </Alarm>
+ <Alarm Name="RR Motor Derating" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RR Motor Temp' [C] &gt; 125"/>
+ </Alarm>
+ <Alarm Name="RR IGBT Derating" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RR IGBT Temp' [C] &gt; 115"/>
+ </Alarm>
+ <Alarm Name="RR Inverter Derating" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 3 Actual Values 2 Inverter RR Inverter Temp' [C] &gt; 50"/>
+ </Alarm>
+ <Alarm Name="Instantaneous Voltage Low" Type="0" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Orion BMS Power Check Instantaneous Voltage' &lt; 400"/>
+ </Alarm>
+ <Alarm Name="Instantaneous Voltage Critically Low" Type="0">
+  <Predicate Script="'Receive CAN CAN 1 Orion BMS Power Check Instantaneous Voltage' &lt; 390"/>
+ </Alarm>
+ <Alarm Name="Orion High Cell Temp Warning" Type="0" ReArmTime="20" Severity="1">
+  <Predicate Script="'Receive CAN CAN 1 Orion BMS Temperature ID High Cell Temperature' [C] &gt; 50"/>
+ </Alarm>
+ <Alarm Name="Orion High Cell Temp Critical Warning" Type="0" ReArmTime="20">
+  <Predicate Script="'Receive CAN CAN 1 Orion BMS Temperature ID High Cell Temperature' [C] &gt; 60"/>
+ </Alarm>
+</Alarms>
