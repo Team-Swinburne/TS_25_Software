@@ -1,0 +1,16 @@
+../Core/Src/ads7028.c:41:6:setCS	16	static
+../Core/Src/ads7028.c:46:6:spiSendReceiveArray	40	static
+../Core/Src/ads7028.c:98:6:initADS7028	16	static
+../Core/Src/ads7028.c:128:6:resetDevice	16	static
+../Core/Src/ads7028.c:148:6:startManualConversions	32	static
+../Core/Src/ads7028.c:176:6:stopConversions	16	static
+../Core/Src/ads7028.c:195:9:readData	40	static
+../Core/Src/ads7028.c:223:9:readSingleRegister	40	static
+../Core/Src/ads7028.c:297:9:getRegisterValue	16	static
+../Core/Src/ads7028.c:316:6:writeSingleRegister	40	static
+../Core/Src/ads7028.c:373:6:setRegisterBits	40	static
+../Core/Src/ads7028.c:413:6:clearRegisterBits	40	static
+../Core/Src/ads7028.c:455:9:calculateCRC	40	static
+../Core/Src/ads7028.c:510:6:setChannelAsAnalogInput	16	static
+../Core/Src/ads7028.c:548:13:restoreRegisterDefaults	8	static
+../Core/Src/ads7028.c:692:16:signExtend	24	static

@@ -1,0 +1,7 @@
+../Core/Src/EEPROM_24FC.c:12:6:EEPROM_24FC_Init	16	static
+../Core/Src/EEPROM_24FC.c:18:13:EEPROM_24FC_I2C_Write	24	static
+../Core/Src/EEPROM_24FC.c:24:13:EEPROM_24FC_I2C_Read	24	static
+../Core/Src/EEPROM_24FC.c:29:7:EEPROM_24FC_Poll	8	static
+../Core/Src/EEPROM_24FC.c:35:6:EEPROM_24FC_ByteWrite	24	static
+../Core/Src/EEPROM_24FC.c:50:6:EEPROM_24FC_PageWrite	24	static
+../Core/Src/EEPROM_24FC.c:62:9:EEPROM_24FC_ByteRead	24	static
