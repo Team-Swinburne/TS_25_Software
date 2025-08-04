@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "Discharge.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -118,7 +118,8 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  UpdateAnalogue();
+	  TransmitCAN();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -346,7 +347,13 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
+{
+	if(htim->Instance == TIM2)
+	{
+		TickerHandler(&Ticker);
+	}
+}
 /* USER CODE END 4 */
 
 /**

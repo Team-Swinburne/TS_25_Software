@@ -122,17 +122,17 @@ void UpdateAnalogue()
 void canFramesDefine()
 {
 	//Heartbeat
-	Discharge.canHeartBeat.canPeripheral = hcan;
-	Discharge.canHeartBeat.TxHeader.IDE = CAN_ID_STD;
-	Discharge.canHeartBeat.TxHeader.StdId = 0x500;
-	Discharge.canHeartBeat.TxHeader.RTR = CAN_RTR_DATA;
-	Discharge.canHeartBeat.TxHeader.DLC = 0x02;
+	Discharge.canHeartBeat.canPeripheral = &hfdcan2;
+	Discharge.canHeartBeat.TxHeader.IdType = FDCAN_STANDARD_ID;
+	Discharge.canHeartBeat.TxHeader.Identifier = 0x500;
+	Discharge.canHeartBeat.TxHeader.TxFrameType = FDCAN_DATA_FRAME;
+	Discharge.canHeartBeat.TxHeader.DataLength = 0x02;
 	Discharge.canHeartBeat.TxData[0] = 0;
 	Discharge.canHeartBeat.TxData[1] = 0;
 
 	//Digital
-	Discharge.canDigital.canPeripheral = hcan;
-	Discharge.canDigital.TxHeader.IDE = CAN_ID_STD;
+	Discharge.canDigital.canPeripheral = &hfdcan2;
+	Discharge.canDigital.TxHeader.IdType = FDCAN_STANDARD_ID;
 	Discharge.canDigital.TxHeader.StdId = 0x453;
 	Discharge.canDigital.TxHeader.RTR = CAN_RTR_DATA;
 	Discharge.canDigital.TxHeader.DLC = 0x03;
@@ -140,12 +140,12 @@ void canFramesDefine()
 	Discharge.canDigital.TxData[1] = 0;
 	Discharge.canDigital.TxData[2] = 0;
 
-	//Analogue RAW
-	Discharge.canAnalogue.canPeripheral = hcan;
-	Discharge.canAnalogue.TxHeader.IDE = CAN_ID_STD;
-	Discharge.canAnalogue.TxHeader.StdId = 0x504;
-	Discharge.canAnalogue.TxHeader.RTR = CAN_RTR_DATA;
-	Discharge.canAnalogue.TxHeader.DLC = 0x08;
+	//Analogue
+	Discharge.canAnalogue.canPeripheral = &hfdcan2;
+	Discharge.canAnalogue.TxHeader.IdType = FDCAN_STANDARD_ID;
+	Discharge.canAnalogue.TxHeader.Identifier = 0x504;
+	Discharge.canAnalogue.TxHeader.TxFrameType = FDCAN_DATA_FRAME;
+	Discharge.canAnalogue.TxHeader.DataLength = 0x08;
 	Discharge.canAnalogue.TxData[0] = 0;
 	Discharge.canAnalogue.TxData[1] = 0;
 	Discharge.canAnalogue.TxData[2] = 0;
@@ -156,11 +156,11 @@ void canFramesDefine()
 	Discharge.canAnalogue.TxData[7] = 0;
 
 	//Analogue RAW
-	Discharge.canAnalogueRaw.canPeripheral = hcan;
-	Discharge.canAnalogueRaw.TxHeader.IDE = CAN_ID_STD;
-	Discharge.canAnalogueRaw.TxHeader.StdId = 0x505;
-	Discharge.canAnalogueRaw.TxHeader.RTR = CAN_RTR_DATA;
-	Discharge.canAnalogueRaw.TxHeader.DLC = 0x08;
+	Discharge.canAnalogueRaw.canPeripheral = &hfdcan2;
+	Discharge.canAnalogueRaw.TxHeader.IdType = FDCAN_STANDARD_ID;
+	Discharge.canAnalogueRaw.TxHeader.Identifier = 0x505;
+	Discharge.canAnalogueRaw.TxHeader.TxFrameType = FDCAN_DATA_FRAME;
+	Discharge.canAnalogueRaw.TxHeader.DataLength = 0x08;
 	Discharge.canAnalogueRaw.TxData[0] = 0;
 	Discharge.canAnalogueRaw.TxData[1] = 0;
 	Discharge.canAnalogueRaw.TxData[2] = 0;
