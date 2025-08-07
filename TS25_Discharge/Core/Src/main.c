@@ -104,9 +104,10 @@ int main(void)
     initialiseADC();
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET); //LED on (default)
 
-    TickerAttach(&Ticker, &TransmitHeartBeat, CAN_RATE_1000MS);
-    TickerAttach(&Ticker, &TransmitAnalogue, CAN_RATE_1000MS);
-    TickerAttach(&Ticker, &TransmitAnalogueRaw, CAN_RATE_1000MS);
+    TickerAttach(&Ticker, &TransmitHeartBeat, DISCHARGE_HEARTBEAT_CAN_RATE);
+    TickerAttach(&Ticker, &TransmitDigital, DISCHARGE_DIGITAL_CAN_RATE);
+    TickerAttach(&Ticker, &TransmitAnalogue, DISCHARGE_ANALOGUE_CAN_RATE);
+    TickerAttach(&Ticker, &TransmitAnalogueRaw, DISCHARGE_ANALOGUE_CAN_RATE);
 
     HAL_FDCAN_Start(&hfdcan2);
 

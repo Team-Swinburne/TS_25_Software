@@ -133,9 +133,9 @@ void canFramesDefine()
 	//Digital
 	Discharge.canDigital.canPeripheral = &hfdcan2;
 	Discharge.canDigital.TxHeader.IdType = FDCAN_STANDARD_ID;
-	Discharge.canDigital.TxHeader.StdId = 0x453;
-	Discharge.canDigital.TxHeader.RTR = CAN_RTR_DATA;
-	Discharge.canDigital.TxHeader.DLC = 0x03;
+	Discharge.canDigital.TxHeader.Identifier = 0x453;
+	Discharge.canDigital.TxHeader.TxFrameType = FDCAN_DATA_FRAME;
+	Discharge.canDigital.TxHeader.DataLength = 0x03;
 	Discharge.canDigital.TxData[0] = 0;
 	Discharge.canDigital.TxData[1] = 0;
 	Discharge.canDigital.TxData[2] = 0;
