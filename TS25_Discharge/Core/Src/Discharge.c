@@ -8,9 +8,9 @@
 #include "Discharge.h"
 
 DischargeInfo_t Discharge;
-unit16_t ThermistorResistance;
+uint16_t ThermistorResistance;
 
-void TrasmitHeartBeat()
+void TransmitHeartBeat()
 {
 	//Increment counter by 1, if 255 forced to 0
 	if(Discharge.HeartBeatCounter == 255)
@@ -24,9 +24,9 @@ void TrasmitHeartBeat()
 	Discharge.canHeartBeat.TxData[1] = Discharge.HeartBeatCounter;
 
 	//Toggle debug LED
-	HAL_GPIO_TogglePin(Discharge.dbgLedPort, Discharge.dbg.LedPin);
+	HAL_GPIO_TogglePin(Discharge.dbgLedPort, Discharge.dbgLedPin);
 
-	Discharge.canHeartBeat.transmitFlag = 1;
+	HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &Discharge.canHeartBeat.TxHeader, Discharge.canHeartBeat.TxData);
 }
 
 void TransmitDigital()
@@ -35,7 +35,7 @@ void TransmitDigital()
 	Discharge.canDigital.TxData[1] = Discharge.FiveKW;
 	Discharge.canDigital.TxData[2] = Discharge.PDOC_ok;
 
-	//HAL_CAN_AddTxMessage(&hcan, &Discharge.canDigital.TxHeader, Discharge.canDigital.TxData, &Discharge.canDigital.TxMailbox);
+	HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &Discharge.canDigital.TxHeader, Discharge.canDigital.TxData);
 }
 
 void UpdateDigital()
@@ -59,7 +59,7 @@ void TransmitAnalogue()
 		Discharge.canAnalogue.TxData[6] = (Discharge.PDOC_Ref_Temp >> 8);
 		Discharge.canAnalogue.TxData[7] = (Discharge.PDOC_Ref_Temp & 0xFF);
 
-		//HAL_CAN_AddTxMessage(&hcan, &Discharge.canAnalogue.TxHeader, Discharge.canAnalogue.TxData, &Discharge.canAnalogue.TxMailbox);
+		HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &Discharge.canAnalogue.TxHeader, Discharge.canAnalogue.TxData);
 }
 
 /**
@@ -76,7 +76,7 @@ void TransmitAnalogueRaw()
 		Discharge.canAnalogueRaw.TxData[6] = (Discharge.PDOC_Ref_Raw_Voltage >> 8);
 		Discharge.canAnalogueRaw.TxData[7] = (Discharge.PDOC_Ref_Raw_Voltage & 0xFF);
 
-		//HAL_CAN_AddTxMessage(&hcan, &Discharge.canAnalogueRaw.TxHeader, Discharge.canAnalogueRaw.TxData, &Discharge.canAnalogueRaw.TxMailbox);
+		HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &Discharge.canAnalogueRaw.TxHeader, Discharge.canAnalogueRaw.TxData);
 	}
 
 void UpdateAnalogue()
@@ -97,7 +97,7 @@ void UpdateAnalogue()
 	Discharge.HV_Active_Voltage = ((HV_R1+HV_R2)/(HV_R2))*(Discharge.HV_Sense_Ref_Raw_Voltage/1000.0)*10;
 
 	//Read PDOC sense input
-	writeSingleRegister(&Discharge.PDOC_ADC, CHANNEL_SEL_ADDRESS, 2);
+	writeSingleRegister(&Discharge.PDOC_ADC, CHANNEL_SEL_ADDRESS, 5);
 	spiSendReceiveArray(&Discharge.PDOC_ADC, test, testRX, 2);
 	Discharge.PDOC_Sensor_Raw_Voltage = (PDOC_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
 
@@ -108,7 +108,7 @@ void UpdateAnalogue()
 	Discharge.PDOC_Sensor_Temp = 10*(( ( 1.0 ) / (term1 + term2)) - 273.15);
 
 	//Read PDOC REF sense input
-	writeSingleRegister(&Discharge.PDOC_ADC, CHANNEL_SEL_ADDRESS, 5);
+	writeSingleRegister(&Discharge.PDOC_ADC, CHANNEL_SEL_ADDRESS, 6);
 	spiSendReceiveArray(&Discharge.PDOC_ADC, test, testRX, 2);
 	Discharge.PDOC_Ref_Raw_Voltage = (PDOC_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
 
