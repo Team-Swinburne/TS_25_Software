@@ -33,6 +33,8 @@ extern SPI_HandleTypeDef hspi1;
 void TransmitHeartBeat();
 void TransmitDigital();
 void UpdateDigital();
+void TransmitDigitalRaw();
+void UpdateDigitalRaw();
 void TransmitAnalogue();
 void UpdateAnalogue();
 void canFramesDefine();
@@ -41,7 +43,7 @@ void initialiseADC();
 
 //put can struct here?
 typedef struct canFrame {
-	FDCAN_HandleTypeDef canPeripheral;
+	FDCAN_HandleTypeDef* canPeripheral;
 	FDCAN_TxHeaderTypeDef TxHeader;
 	uint8_t              TxData[8];
 	//uint32_t             TxMailbox;

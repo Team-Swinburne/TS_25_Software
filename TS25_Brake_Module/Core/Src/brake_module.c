@@ -8,7 +8,6 @@
 #include "brake_module.h"
 
 BrakeModuleInfo_t BrakeModule;
-BrakeCalibration_t BrakeCalibration;
 
 void TransmitHeartBeat()
 {

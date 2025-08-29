@@ -1,0 +1,10 @@
+../Core/Src/brake_module.c:12:6:TransmitHeartBeat	8	static
+../Core/Src/brake_module.c:36:6:TransmitDigital	8	static
+../Core/Src/brake_module.c:49:6:UpdateDigital	8	static
+../Core/Src/brake_module.c:78:6:TransmitDigitalRaw	8	static
+../Core/Src/brake_module.c:93:6:UpdateDigitalRaw	16	static
+../Core/Src/brake_module.c:121:6:TransmitAnalogue	8	static
+../Core/Src/brake_module.c:135:6:UpdateAnalogue	16	static
+../Core/Src/brake_module.c:173:6:canFramesDefine	8	static
+../Core/Src/brake_module.c:228:6:ioAssign	8	static
+../Core/Src/brake_module.c:263:6:initialiseADC	8	static
