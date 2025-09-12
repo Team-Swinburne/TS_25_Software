@@ -117,6 +117,7 @@ void UpdateAnalogue()
 	term1 = ( 1.0 )/( 298.15 );
 	term2 = (( 1.0 )/( THERMISTOR_BETA ))*log( (ThermistorResistance) / (10000.0) );
 	Discharge.PDOC_Ref_Temp = 10*(( ( 1.0 ) / (term1 + term2)) - 273.15);
+
 }
 
 void canFramesDefine()
@@ -206,8 +207,9 @@ void initialiseADC()
 {
 	HAL_Delay(50);
 
-	initADS7028(&Discharge.HVSense_ADC);
 	initADS7028(&Discharge.PDOC_ADC);
+	HAL_Delay(50);
+	initADS7028(&Discharge.HVSense_ADC);
 
 	HAL_Delay(1000);
 }

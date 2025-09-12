@@ -6,4 +6,4 @@
 ../Core/Src/main.c:315:13:MX_USB_DRD_FS_PCD_Init	8	static
 ../Core/Src/main.c:352:13:MX_GPIO_Init	48	static
 ../Core/Src/main.c:401:6:HAL_TIM_PeriodElapsedCallback	16	static
-../Core/Src/main.c:411:6:Error_Handler	8	static,ignoring_inline_asm
+../Core/Src/main.c:414:6:Error_Handler	8	static,ignoring_inline_asm

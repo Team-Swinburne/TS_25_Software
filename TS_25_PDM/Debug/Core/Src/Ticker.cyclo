@@ -1,0 +1,2 @@
+../Core/Src/Ticker.c:12:6:TickerAttach	2
+../Core/Src/Ticker.c:21:6:TickerHandler	3

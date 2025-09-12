@@ -60,8 +60,8 @@ all: main-build
 main-build: TS25\ Brake\ Module.elf secondary-outputs
 
 # Tool invocations
-TS25\ Brake\ Module.elf TS25\ Brake\ Module.map: $(OBJS) $(USER_OBJS) C:\Users\tient\STM32CubeIDE\workspace_1.18.1\TS25\ Brake\ Module\STM32G0B1KBUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "TS25 Brake Module.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Users\tient\STM32CubeIDE\workspace_1.18.1\TS25 Brake Module\STM32G0B1KBUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TS25 Brake Module.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+TS25\ Brake\ Module.elf TS25\ Brake\ Module.map: $(OBJS) $(USER_OBJS) C:\Users\boana\OneDrive\Documents\GitHub\TS_25_Software\TS25_Brake_Module\STM32G0B1KBUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "TS25 Brake Module.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Users\boana\OneDrive\Documents\GitHub\TS_25_Software\TS25_Brake_Module\STM32G0B1KBUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TS25 Brake Module.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

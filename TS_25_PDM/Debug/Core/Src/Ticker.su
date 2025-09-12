@@ -1,0 +1,2 @@
+../Core/Src/Ticker.c:12:6:TickerAttach	24	static
+../Core/Src/Ticker.c:21:6:TickerHandler	24	static

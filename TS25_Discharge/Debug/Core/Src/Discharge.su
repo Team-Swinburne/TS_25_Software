@@ -4,6 +4,6 @@
 ../Core/Src/Discharge.c:51:6:TransmitAnalogue	8	static
 ../Core/Src/Discharge.c:68:6:TransmitAnalogueRaw	8	static
 ../Core/Src/Discharge.c:82:6:UpdateAnalogue	32	static
-../Core/Src/Discharge.c:122:6:canFramesDefine	8	static
-../Core/Src/Discharge.c:174:6:ioAssign	8	static
-../Core/Src/Discharge.c:205:6:initialiseADC	8	static
+../Core/Src/Discharge.c:123:6:canFramesDefine	8	static
+../Core/Src/Discharge.c:175:6:ioAssign	8	static
+../Core/Src/Discharge.c:206:6:initialiseADC	8	static
