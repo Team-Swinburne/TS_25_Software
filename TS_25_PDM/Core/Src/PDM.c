@@ -20,7 +20,7 @@ void CheckReceivedCAN()
 		if ((RxHeader.Identifier == 0x260 + i))
 		{
 			//Set dutycycle to 100, if received data is above 100.
-			for(uint8_t i = 0; i < 4; i++)
+			for(uint8_t i = 0; i < 2; i++)
 			{
 				if(RxData[i] > 100)
 				{

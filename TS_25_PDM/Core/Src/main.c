@@ -111,30 +111,18 @@ int main(void)
 
   HAL_FDCAN_Start(&hfdcan2);
 
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
 
   FDCAN_FilterTypeDef canfilterconfig;
 
-
   canfilterconfig.IdType = FDCAN_STANDARD_ID;
   canfilterconfig.FilterIndex = 0;
-  canfilterconfig.FilterType = FDCAN_FILTER_MASK;
+  canfilterconfig.FilterType = FDCAN_FILTER_RANGE;
   canfilterconfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
   canfilterconfig.FilterID1 = 0x260;
   canfilterconfig.FilterID2 = 0x264;
-  /*
-  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
-  canfilterconfig.SlaveStartFilterBank = 14;  // how many filters to assign to the CAN1 (master can)
-  canfilterconfig.FilterBank = 0;  // which filter bank to use from the assigned ones
-  canfilterconfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
-  canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
-  canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
-  canfilterconfig.FilterIdHigh = PDM_RECEIVE_ID<<5;
-  canfilterconfig.FilterIdLow = 0;
-  canfilterconfig.FilterMaskIdHigh = PDM_RECEIVE_ID<<5;
-  canfilterconfig.FilterMaskIdLow = 0x0000;
-  */
+
   HAL_FDCAN_ConfigFilter(&hfdcan2, &canfilterconfig);
 
   HAL_TIM_Base_Start_IT(&htim2);
