@@ -54,9 +54,9 @@ void UpdateDigital()
 		BrakeModule.LowPressure = 0;
 	}
 	if (BrakeModule.HighPressureRaw >= 3300) {
-		BrakeModule.LowPressure = 1;
+		BrakeModule.HighPressure = 1;
 	} else {
-		BrakeModule.LowPressure = 0;
+		BrakeModule.HighPressure = 0;
 	}
 	if (BrakeModule.BSPDLatchRaw >= 3300) {
 		BrakeModule.BSPDLatch = 1;
@@ -86,7 +86,7 @@ void TransmitDigitalRaw()
 	BrakeModule.canDigitalRaw.TxData[6] = (BrakeModule.GL_InOKRaw >> 8);
 	BrakeModule.canDigitalRaw.TxData[7] = (BrakeModule.GL_InOKRaw & 0xFF);
 
-	HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &BrakeModule.canDigitalRaw.TxHeader, BrakeModule.canAnalogue.TxData);
+	HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &BrakeModule.canDigitalRaw.TxHeader, BrakeModule.canDigitalRaw.TxData);
 }
 
 // get data from real life
@@ -195,19 +195,19 @@ void canFramesDefine()
 	BrakeModule.canDigital.TxData[5] = 0;
 
 	//Digital RAW
-	BrakeModule.canAnalogue.canPeripheral = &hfdcan2;
-	BrakeModule.canAnalogue.TxHeader.IdType = FDCAN_STANDARD_ID;
-	BrakeModule.canAnalogue.TxHeader.Identifier = 0x153;
-	BrakeModule.canAnalogue.TxHeader.TxFrameType = FDCAN_DATA_FRAME;
-	BrakeModule.canAnalogue.TxHeader.DataLength = 0x08;
-	BrakeModule.canAnalogue.TxData[0] = 0;
-	BrakeModule.canAnalogue.TxData[1] = 0;
-	BrakeModule.canAnalogue.TxData[2] = 0;
-	BrakeModule.canAnalogue.TxData[3] = 0;
-	BrakeModule.canAnalogue.TxData[4] = 0;
-	BrakeModule.canAnalogue.TxData[5] = 0;
-	BrakeModule.canAnalogue.TxData[6] = 0;
-	BrakeModule.canAnalogue.TxData[7] = 0;
+	BrakeModule.canDigitalRaw.canPeripheral = &hfdcan2;
+	BrakeModule.canDigitalRaw.TxHeader.IdType = FDCAN_STANDARD_ID;
+	BrakeModule.canDigitalRaw.TxHeader.Identifier = 0x153;
+	BrakeModule.canDigitalRaw.TxHeader.TxFrameType = FDCAN_DATA_FRAME;
+	BrakeModule.canDigitalRaw.TxHeader.DataLength = 0x08;
+	BrakeModule.canDigitalRaw.TxData[0] = 0;
+	BrakeModule.canDigitalRaw.TxData[1] = 0;
+	BrakeModule.canDigitalRaw.TxData[2] = 0;
+	BrakeModule.canDigitalRaw.TxData[3] = 0;
+	BrakeModule.canDigitalRaw.TxData[4] = 0;
+	BrakeModule.canDigitalRaw.TxData[5] = 0;
+	BrakeModule.canDigitalRaw.TxData[6] = 0;
+	BrakeModule.canDigitalRaw.TxData[7] = 0;
 
 	//Analogue
 	BrakeModule.canAnalogue.canPeripheral = &hfdcan2;
@@ -231,11 +231,11 @@ void ioAssign()
 	//SPI
 	BrakeModule.Brake_ADC1.SPI_Handle = &hspi1;
 	BrakeModule.Brake_ADC1.CS_Port = GPIOA;
-	BrakeModule.Brake_ADC1.CS_Pin = GPIO_PIN_4;
+	BrakeModule.Brake_ADC1.CS_Pin = GPIO_PIN_15;
 
 	//outputs
 	BrakeModule.dbgLedPort = GPIOB;
-	BrakeModule.dbgLedPin = GPIO_PIN_5;
+	BrakeModule.dbgLedPin = GPIO_PIN_6;
 	HAL_GPIO_WritePin(BrakeModule.dbgLedPort, BrakeModule.dbgLedPin, GPIO_PIN_RESET); //LED on (default)
 
 	//inputs

@@ -54,7 +54,7 @@ extern SPI_HandleTypeDef hspi1;
 
 //Function prototypes
 void CheckReceivedCAN();
-void updatePWM(uint8_t driverSelect);
+void updatePWM();
 void TransmitHeartBeat();
 void TransmitDigital();
 void UpdateDigital();
@@ -67,8 +67,8 @@ void canFramesDefine();
 void ioAssign();
 void initialiseADC();
 
-#define HSD_B 0
-#define HSD_A 1
+#define HSD_A 0
+#define HSD_B 1
 
 typedef struct canFrame
 {

@@ -106,11 +106,11 @@ int main(void)
   canFramesDefine();
   ioAssign();
   initialiseADC();
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET); //LED on (default)
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET); //LED on (default)
 
   TickerAttach(&Ticker, &TransmitHeartBeat, BRAKE_MODULE_HEARTBEAT_CAN_RATE);
   TickerAttach(&Ticker, &TransmitDigital, BRAKE_MODULE_DIGITAL_CAN_RATE);
-  TickerAttach(&Ticker, &TransmitDigitalRaw, BRAKE_MODULE_DIGITAL_CAN_RATE);
+  TickerAttach(&Ticker, &TransmitDigitalRaw, BRAKE_MODULE_ANALOGUE_CAN_RATE);
   TickerAttach(&Ticker, &TransmitAnalogue, BRAKE_MODULE_ANALOGUE_CAN_RATE);
 
   HAL_FDCAN_Start(&hfdcan2);
@@ -125,6 +125,7 @@ int main(void)
 	UpdateDigital();
 	UpdateDigitalRaw();
 	UpdateAnalogue();
+	//TransmitCAN();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -172,7 +173,7 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
@@ -204,8 +205,8 @@ static void MX_FDCAN2_Init(void)
   hfdcan2.Init.ProtocolException = DISABLE;
   hfdcan2.Init.NominalPrescaler = 4;
   hfdcan2.Init.NominalSyncJumpWidth = 1;
-  hfdcan2.Init.NominalTimeSeg1 = 22;
-  hfdcan2.Init.NominalTimeSeg2 = 9;
+  hfdcan2.Init.NominalTimeSeg1 = 11;
+  hfdcan2.Init.NominalTimeSeg2 = 4;
   hfdcan2.Init.DataPrescaler = 1;
   hfdcan2.Init.DataSyncJumpWidth = 1;
   hfdcan2.Init.DataTimeSeg1 = 1;
@@ -252,7 +253,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
@@ -422,8 +423,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.

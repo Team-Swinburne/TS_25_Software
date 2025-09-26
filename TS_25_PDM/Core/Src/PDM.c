@@ -13,6 +13,7 @@ uint8_t RxData[8];
 
 void CheckReceivedCAN()
 {
+
 	HAL_FDCAN_GetRxMessage(&hfdcan2, FDCAN_RX_FIFO0, &RxHeader, RxData);
 
 	for(uint8_t i = 0; i < 5; i++)
@@ -28,22 +29,35 @@ void CheckReceivedCAN()
 				}
 			}
 
-			PDM.driverSwitch[i].Grab[HSD_A].DutyCycle = 100;//RxData[0];
+			PDM.driverSwitch[i].Grab[HSD_A].DutyCycle = RxData[0];
 			PDM.driverSwitch[i].Grab[HSD_B].DutyCycle = RxData[1];
-
-			updatePWM(i);
 		}
 	}
 
 }
 
-void updatePWM(uint8_t driverSelect)
+void updatePWM()
 {
-	//A
-	TIM2->CCR3 = 31999*(PDM.driverSwitch[driverSelect].Grab[HSD_A].DutyCycle/100.0);
+	//Pump 1
+	TIM2->CCR1 = 31999*(PDM.driverSwitch[0].Grab[HSD_A].DutyCycle/100.0);
 
-	//B
-	TIM2->CCR4 = 31999*(PDM.driverSwitch[driverSelect].Grab[HSD_B].DutyCycle/100.0);
+	//Fan 1
+	TIM2->CCR2 = 31999*(PDM.driverSwitch[0].Grab[HSD_B].DutyCycle/100.0);
+
+	//Pump 2
+	TIM2->CCR3 = 31999*(PDM.driverSwitch[1].Grab[HSD_A].DutyCycle/100.0);
+
+	//Fan 2
+	TIM2->CCR4 = 31999*(PDM.driverSwitch[1].Grab[HSD_B].DutyCycle/100.0);
+
+	//Fan 3
+	TIM4->CCR4 = 31999*(PDM.driverSwitch[2].Grab[HSD_B].DutyCycle/100.0);
+
+	//Accumulator
+	//NMEA
+	//Discharge
+	//Motor Controller (Inverter)
+	//Brake Light
 }
 
 void TransmitHeartBeat()
@@ -93,6 +107,39 @@ void TransmitDriverOut()
 
 void UpdateDriverOut()
 {
+	HAL_GPIO_WritePin(PDM.Drivers[3].OutputBPort, PDM.Drivers[3].OutputBPin, 1); //Discharge
+
+	if(PDM.BL_Active)
+	{
+		HAL_GPIO_WritePin(PDM.Drivers[2].OutputBPort, PDM.Drivers[2].OutputBPin, 1); //Accumulator
+		HAL_GPIO_WritePin(PDM.Drivers[3].OutputAPort, PDM.Drivers[3].OutputAPin, 1); //NMEA
+
+		if(PDM.GL_Active)
+		{
+			HAL_GPIO_WritePin(PDM.Drivers[4].OutputAPort, PDM.Drivers[4].OutputAPin, 1); //Inverter
+			HAL_GPIO_WritePin(PDM.Drivers[2].OutputAPort, PDM.Drivers[2].OutputAPin, 1); //Fan 3
+			HAL_GPIO_WritePin(PDM.Drivers[1].OutputBPort, PDM.Drivers[1].OutputBPin, 1); //Fan 2
+			HAL_GPIO_WritePin(PDM.Drivers[0].OutputBPort, PDM.Drivers[0].OutputBPin, 1); //Fan 1
+			HAL_GPIO_WritePin(PDM.Drivers[1].OutputAPort, PDM.Drivers[1].OutputAPin, 1); //Pump 2
+			HAL_GPIO_WritePin(PDM.Drivers[0].OutputAPort, PDM.Drivers[0].OutputAPin, 1); //Pump 1
+		}
+		else
+		{
+			HAL_GPIO_WritePin(PDM.Drivers[4].OutputAPort, PDM.Drivers[4].OutputAPin, 0); //Inverter
+			HAL_GPIO_WritePin(PDM.Drivers[2].OutputAPort, PDM.Drivers[2].OutputAPin, 0); //Fan 3
+			HAL_GPIO_WritePin(PDM.Drivers[1].OutputBPort, PDM.Drivers[1].OutputBPin, 0); //Fan 2
+			HAL_GPIO_WritePin(PDM.Drivers[0].OutputBPort, PDM.Drivers[0].OutputBPin, 0); //Fan 1
+			HAL_GPIO_WritePin(PDM.Drivers[1].OutputAPort, PDM.Drivers[1].OutputAPin, 0); //Pump 2
+			HAL_GPIO_WritePin(PDM.Drivers[0].OutputAPort, PDM.Drivers[0].OutputAPin, 0); //Pump 1
+		}
+
+	}
+	else
+	{
+		HAL_GPIO_WritePin(PDM.Drivers[2].OutputBPort, PDM.Drivers[2].OutputBPin, 0); //Accumulator
+		HAL_GPIO_WritePin(PDM.Drivers[3].OutputAPort, PDM.Drivers[3].OutputAPin, 0); //NMEA
+	}
+
 	for(uint8_t i = 0; i < 5; i++)
 	{
 		PDM.Drivers[i].OutputA = HAL_GPIO_ReadPin(PDM.Drivers[i].OutputAPort, PDM.Drivers[i].OutputAPin);
@@ -121,40 +168,44 @@ void UpdateHSDrivers()
 	uint8_t testRX[2] = { 0, 0 };
 
 	//Read Current for Driver1
-	writeSingleRegister(&PDM.HSD_ADC2, CHANNEL_SEL_ADDRESS, 4);
-	spiSendReceiveArray(&PDM.HSD_ADC2, test, testRX, 2);
+	writeSingleRegister(&PDM.HSD_ADC1, CHANNEL_SEL_ADDRESS, 2);
+	spiSendReceiveArray(&PDM.HSD_ADC1, test, testRX, 2);
 	PDM.driverSwitch[0].Driver[HSD_A].Current = (HSD_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
+	writeSingleRegister(&PDM.HSD_ADC1, CHANNEL_SEL_ADDRESS, 4);
+	spiSendReceiveArray(&PDM.HSD_ADC1, test, testRX, 2);
 	PDM.driverSwitch[0].Driver[HSD_B].Current = (HSD_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
 
 	//Read Current for Driver2
-	writeSingleRegister(&PDM.HSD_ADC2, CHANNEL_SEL_ADDRESS, 5);
-	spiSendReceiveArray(&PDM.HSD_ADC2, test, testRX, 2);
+	writeSingleRegister(&PDM.HSD_ADC1, CHANNEL_SEL_ADDRESS, 7);
+	spiSendReceiveArray(&PDM.HSD_ADC1, test, testRX, 2);
 	PDM.driverSwitch[1].Driver[HSD_A].Current = (HSD_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
-	PDM.driverSwitch[1].Driver[HSD_A].DutyCycle = PDM.driverSwitch[1].Grab[HSD_A].DutyCycle;
+	writeSingleRegister(&PDM.HSD_ADC1, CHANNEL_SEL_ADDRESS, 5);
+	spiSendReceiveArray(&PDM.HSD_ADC1, test, testRX, 2);
 	PDM.driverSwitch[1].Driver[HSD_B].Current = (HSD_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
-	PDM.driverSwitch[1].Driver[HSD_B].DutyCycle = PDM.driverSwitch[1].Grab[HSD_A].DutyCycle;
 
 	//Read Current for Driver3
-	writeSingleRegister(&PDM.HSD_ADC1, CHANNEL_SEL_ADDRESS, 6);
-	spiSendReceiveArray(&PDM.HSD_ADC1, test, testRX, 2);
+	writeSingleRegister(&PDM.HSD_ADC2, CHANNEL_SEL_ADDRESS, 4);
+	spiSendReceiveArray(&PDM.HSD_ADC2, test, testRX, 2);
 	PDM.driverSwitch[2].Driver[HSD_A].Current = (HSD_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
+	writeSingleRegister(&PDM.HSD_ADC2, CHANNEL_SEL_ADDRESS, 6);
+	spiSendReceiveArray(&PDM.HSD_ADC2, test, testRX, 2);
 	PDM.driverSwitch[2].Driver[HSD_B].Current = (HSD_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
 
 	//Read Current for Driver4
-	writeSingleRegister(&PDM.HSD_ADC1, CHANNEL_SEL_ADDRESS, 7);
-	spiSendReceiveArray(&PDM.HSD_ADC1, test, testRX, 2);
-	PDM.driverSwitch[3].Driver[HSD_A].Current = (HSD_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
-	PDM.driverSwitch[3].Driver[HSD_A].DutyCycle = PDM.driverSwitch[3].Grab[HSD_A].DutyCycle;
-	PDM.driverSwitch[3].Driver[HSD_B].Current = (HSD_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
-	PDM.driverSwitch[3].Driver[HSD_B].DutyCycle = PDM.driverSwitch[3].Grab[HSD_A].DutyCycle;
-
-	//Read Current for Driver5
 	writeSingleRegister(&PDM.HSD_ADC1, CHANNEL_SEL_ADDRESS, 1);
 	spiSendReceiveArray(&PDM.HSD_ADC1, test, testRX, 2);
+	PDM.driverSwitch[3].Driver[HSD_A].Current = (HSD_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
+	writeSingleRegister(&PDM.HSD_ADC2, CHANNEL_SEL_ADDRESS, 7);
+	spiSendReceiveArray(&PDM.HSD_ADC2, test, testRX, 2);
+	PDM.driverSwitch[3].Driver[HSD_B].Current = (HSD_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
+
+	//Read Current for Driver5
+	writeSingleRegister(&PDM.HSD_ADC2, CHANNEL_SEL_ADDRESS, 2);
+	spiSendReceiveArray(&PDM.HSD_ADC2, test, testRX, 2);
 	PDM.driverSwitch[4].Driver[HSD_A].Current = (HSD_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
-	PDM.driverSwitch[4].Driver[HSD_A].DutyCycle = PDM.driverSwitch[4].Grab[HSD_A].DutyCycle;
+	writeSingleRegister(&PDM.HSD_ADC2, CHANNEL_SEL_ADDRESS, 0);
+	spiSendReceiveArray(&PDM.HSD_ADC2, test, testRX, 2);
 	PDM.driverSwitch[4].Driver[HSD_B].Current = (HSD_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
-	PDM.driverSwitch[4].Driver[HSD_B].DutyCycle = PDM.driverSwitch[4].Grab[HSD_A].DutyCycle;
 }
 
 void TransmitCAN()
@@ -267,6 +318,26 @@ void ioAssign()
 	PDM.Drivers[0].OutputAPin = GPIO_PIN_7;
 	PDM.Drivers[0].OutputBPort = GPIOB;
 	PDM.Drivers[0].OutputBPin = GPIO_PIN_6;
+
+	PDM.Drivers[1].OutputAPort = GPIOB;
+	PDM.Drivers[1].OutputAPin = GPIO_PIN_8;
+	PDM.Drivers[1].OutputBPort = GPIOC;
+	PDM.Drivers[1].OutputBPin = GPIO_PIN_14;
+
+	PDM.Drivers[2].OutputAPort = GPIOA;
+	PDM.Drivers[2].OutputAPin = GPIO_PIN_12;
+	PDM.Drivers[2].OutputBPort = GPIOA;
+	PDM.Drivers[2].OutputBPin = GPIO_PIN_11;
+
+	PDM.Drivers[3].OutputAPort = GPIOA;
+	PDM.Drivers[3].OutputAPin = GPIO_PIN_8;
+	PDM.Drivers[3].OutputBPort = GPIOA;
+	PDM.Drivers[3].OutputBPin = GPIO_PIN_9;
+
+	PDM.Drivers[4].OutputAPort = GPIOC;
+	PDM.Drivers[4].OutputAPin = GPIO_PIN_6;
+	PDM.Drivers[4].OutputBPort = GPIOA;
+	PDM.Drivers[4].OutputBPin = GPIO_PIN_10;
 }
 
 void initialiseADC()

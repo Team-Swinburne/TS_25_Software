@@ -37,6 +37,7 @@ void TransmitDigitalRaw();
 void UpdateDigitalRaw();
 void TransmitAnalogue();
 void UpdateAnalogue();
+void TransmitCAN();
 void canFramesDefine();
 void ioAssign();
 void initialiseADC();
