@@ -54,10 +54,19 @@ void updatePWM()
 	TIM4->CCR4 = 31999*(PDM.driverSwitch[2].Grab[HSD_B].DutyCycle/100.0);
 
 	//Accumulator
+	PDM.diagAccum = PDM.driverSwitch[2].Grab[HSD_A].DutyCycle/100.0;
+
 	//NMEA
+	PDM.diagNMEA = PDM.driverSwitch[3].Grab[HSD_A].DutyCycle/100.0;
+
 	//Discharge
+	PDM.diagDschrg = PDM.driverSwitch[3].Grab[HSD_B].DutyCycle/100.0;
+
 	//Motor Controller (Inverter)
+	PDM.diagInverter = PDM.driverSwitch[4].Grab[HSD_A].DutyCycle/100.0;
+
 	//Brake Light
+	PDM.diagBrkLght = PDM.driverSwitch[4].Grab[HSD_B].DutyCycle/100.0;
 }
 
 void TransmitHeartBeat()
@@ -108,6 +117,7 @@ void TransmitDriverOut()
 void UpdateDriverOut()
 {
 	HAL_GPIO_WritePin(PDM.Drivers[3].OutputBPort, PDM.Drivers[3].OutputBPin, 1); //Discharge
+	HAL_GPIO_WritePin(PDM.Drivers[4].OutputBPort, PDM.Drivers[4].OutputBPin, PDM.diagBrkLght); //Brake Light
 
 	if(PDM.BL_Active)
 	{
@@ -125,19 +135,19 @@ void UpdateDriverOut()
 		}
 		else
 		{
-			HAL_GPIO_WritePin(PDM.Drivers[4].OutputAPort, PDM.Drivers[4].OutputAPin, 0); //Inverter
-			HAL_GPIO_WritePin(PDM.Drivers[2].OutputAPort, PDM.Drivers[2].OutputAPin, 0); //Fan 3
-			HAL_GPIO_WritePin(PDM.Drivers[1].OutputBPort, PDM.Drivers[1].OutputBPin, 0); //Fan 2
-			HAL_GPIO_WritePin(PDM.Drivers[0].OutputBPort, PDM.Drivers[0].OutputBPin, 0); //Fan 1
-			HAL_GPIO_WritePin(PDM.Drivers[1].OutputAPort, PDM.Drivers[1].OutputAPin, 0); //Pump 2
-			HAL_GPIO_WritePin(PDM.Drivers[0].OutputAPort, PDM.Drivers[0].OutputAPin, 0); //Pump 1
+			HAL_GPIO_WritePin(PDM.Drivers[4].OutputAPort, PDM.Drivers[4].OutputAPin, PDM.diagInverter); //Inverter
+			HAL_GPIO_WritePin(PDM.Drivers[2].OutputAPort, PDM.Drivers[2].OutputAPin, TIM4->CCR4); //Fan 3
+			HAL_GPIO_WritePin(PDM.Drivers[1].OutputBPort, PDM.Drivers[1].OutputBPin, TIM2->CCR4); //Fan 2
+			HAL_GPIO_WritePin(PDM.Drivers[0].OutputBPort, PDM.Drivers[0].OutputBPin, TIM2->CCR2); //Fan 1
+			HAL_GPIO_WritePin(PDM.Drivers[1].OutputAPort, PDM.Drivers[1].OutputAPin, TIM2->CCR3); //Pump 2
+			HAL_GPIO_WritePin(PDM.Drivers[0].OutputAPort, PDM.Drivers[0].OutputAPin, TIM2->CCR1); //Pump 1
 		}
 
 	}
 	else
 	{
-		HAL_GPIO_WritePin(PDM.Drivers[2].OutputBPort, PDM.Drivers[2].OutputBPin, 0); //Accumulator
-		HAL_GPIO_WritePin(PDM.Drivers[3].OutputAPort, PDM.Drivers[3].OutputAPin, 0); //NMEA
+		HAL_GPIO_WritePin(PDM.Drivers[2].OutputBPort, PDM.Drivers[2].OutputBPin, PDM.diagAccum); //Accumulator
+		HAL_GPIO_WritePin(PDM.Drivers[3].OutputAPort, PDM.Drivers[3].OutputAPin, PDM.diagNMEA); //NMEA
 	}
 
 	for(uint8_t i = 0; i < 5; i++)

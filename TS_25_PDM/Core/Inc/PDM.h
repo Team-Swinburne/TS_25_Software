@@ -119,6 +119,12 @@ typedef struct PDMInfo {
     canFrame_t canDriverOut[5];
     canFrame_t canDriverDiag[5];
 
+    float diagBrkLght;
+    float diagInverter;
+    float diagDschrg;
+    float diagNMEA;
+    float diagAccum;
+
     //Digital Ports and Pins
     GPIO_TypeDef* GL_ActivePort;
     uint16_t GL_ActivePin;
