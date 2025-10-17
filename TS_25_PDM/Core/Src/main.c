@@ -113,7 +113,6 @@ int main(void)
   TickerAttach(&Ticker, &TransmitHeartBeat, PDM_HEARTBEAT_CAN_RATE);
   TickerAttach(&Ticker, &TransmitDigital, PDM_DIGITAL_CAN_RATE);
   TickerAttach(&Ticker, &TransmitDriverOut, PDM_HSDRIVERS_CAN_RATE);
-  TickerAttach(&Ticker, &TransmitHSDrivers, PDM_HSDRIVERS_CAN_RATE);
 
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
@@ -121,26 +120,26 @@ int main(void)
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_4);
 
-  FDCAN_FilterTypeDef sFilterConfig;
+  //FDCAN_FilterTypeDef sFilterConfig;
 
-  /* Configure Rx filter */
+  /* Configure Rx filter *//*
   sFilterConfig.IdType = FDCAN_STANDARD_ID;
   sFilterConfig.FilterIndex = 0;
   sFilterConfig.FilterType = FDCAN_FILTER_MASK;
   sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
   sFilterConfig.FilterID1 = 0x260;
-  sFilterConfig.FilterID2 = 0x7FF;
+  sFilterConfig.FilterID2 = 0;
   HAL_FDCAN_ConfigFilter(&hfdcan2, &sFilterConfig);
-
+  */
   /* Configure global filter:
      Filter all remote frames with STD and EXT ID
      Reject non matching frames with STD ID and EXT ID */
-  HAL_FDCAN_ConfigGlobalFilter(&hfdcan2, FDCAN_REJECT, FDCAN_REJECT, FDCAN_FILTER_REMOTE, FDCAN_FILTER_REMOTE);
+  //HAL_FDCAN_ConfigGlobalFilter(&hfdcan2, FDCAN_REJECT, FDCAN_REJECT, FDCAN_FILTER_REMOTE, FDCAN_FILTER_REMOTE);
 
   /* Start the FDCAN module */
   HAL_FDCAN_Start(&hfdcan2);
 
-  HAL_FDCAN_ActivateNotification(&hfdcan2, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0);
+  //HAL_FDCAN_ActivateNotification(&hfdcan2, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0);
 
   HAL_TIM_Base_Start_IT(&htim15);
   /* USER CODE END 2 */
@@ -153,7 +152,6 @@ int main(void)
 	  updatePWM();
 	  UpdateDigital();
 	  UpdateDriverOut();
-	  UpdateHSDrivers();
 	  TransmitCAN();
     /* USER CODE END WHILE */
 
