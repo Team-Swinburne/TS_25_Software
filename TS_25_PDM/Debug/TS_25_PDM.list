@@ -4623,9 +4623,9 @@ void ioAssign()
  8002350:	4b27      	ldr	r3, [pc, #156]	@ (80023f0 <ioAssign+0x13c>)
  8002352:	4a2b      	ldr	r2, [pc, #172]	@ (8002400 <ioAssign+0x14c>)
  8002354:	609a      	str	r2, [r3, #8]
-	PDM.Drivers[0].OutputAPin = GPIO_PIN_6; //pump 1
+	PDM.Drivers[0].OutputAPin = GPIO_PIN_7; //pump 1
  8002356:	4b26      	ldr	r3, [pc, #152]	@ (80023f0 <ioAssign+0x13c>)
- 8002358:	2240      	movs	r2, #64	@ 0x40
+ 8002358:	2280      	movs	r2, #128	@ 0x80
  800235a:	819a      	strh	r2, [r3, #12]
 	PDM.Drivers[0].OutputBPort = GPIOA;
  800235c:	4b24      	ldr	r3, [pc, #144]	@ (80023f0 <ioAssign+0x13c>)
@@ -4714,10 +4714,10 @@ void ioAssign()
  80023da:	4b05      	ldr	r3, [pc, #20]	@ (80023f0 <ioAssign+0x13c>)
  80023dc:	4a08      	ldr	r2, [pc, #32]	@ (8002400 <ioAssign+0x14c>)
  80023de:	661a      	str	r2, [r3, #96]	@ 0x60
-	PDM.Drivers[4].OutputBPin = GPIO_PIN_7; //Brake Light
+	PDM.Drivers[4].OutputBPin = GPIO_PIN_6; //Brake Light
  80023e0:	4b03      	ldr	r3, [pc, #12]	@ (80023f0 <ioAssign+0x13c>)
  80023e2:	2264      	movs	r2, #100	@ 0x64
- 80023e4:	2180      	movs	r1, #128	@ 0x80
+ 80023e4:	2140      	movs	r1, #64	@ 0x40
  80023e6:	5299      	strh	r1, [r3, r2]
 }
  80023e8:	46c0      	nop			@ (mov r8, r8)

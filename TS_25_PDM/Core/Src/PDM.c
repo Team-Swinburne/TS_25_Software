@@ -238,7 +238,7 @@ void ioAssign()
 	PDM.BL_ActivePin = GPIO_PIN_7;
 
 	PDM.Drivers[0].OutputAPort = GPIOB;
-	PDM.Drivers[0].OutputAPin = GPIO_PIN_6; //pump 1
+	PDM.Drivers[0].OutputAPin = GPIO_PIN_7; //pump 1
 	PDM.Drivers[0].OutputBPort = GPIOA;
 	PDM.Drivers[0].OutputBPin = GPIO_PIN_11; //fan 1
 
@@ -260,7 +260,7 @@ void ioAssign()
 	PDM.Drivers[4].OutputAPort = GPIOA;
 	PDM.Drivers[4].OutputAPin = GPIO_PIN_8; //Inverter
 	PDM.Drivers[4].OutputBPort = GPIOB;
-	PDM.Drivers[4].OutputBPin = GPIO_PIN_7; //Brake Light
+	PDM.Drivers[4].OutputBPin = GPIO_PIN_6; //Brake Light
 }
 
 void initialiseADC()
