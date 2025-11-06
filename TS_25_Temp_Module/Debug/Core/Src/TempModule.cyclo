@@ -1,0 +1,11 @@
+../Core/Src/TempModule.c:19:15:EnergusConvertToTemp	3
+../Core/Src/TempModule.c:32:6:TransmitHeartBeat	2
+../Core/Src/TempModule.c:54:6:TransmitAnalogue	2
+../Core/Src/TempModule.c:66:6:TransmitAnalogueRaw	2
+../Core/Src/TempModule.c:80:6:TransmitCAN	10
+../Core/Src/TempModule.c:119:6:CalculateVoltageReading	4
+../Core/Src/TempModule.c:150:6:CalculateTemperature	3
+../Core/Src/TempModule.c:163:6:UpdateAnalogue	3
+../Core/Src/TempModule.c:182:6:canFramesDefine	3
+../Core/Src/TempModule.c:231:6:ioAssign	1
+../Core/Src/TempModule.c:270:6:initialiseADC	2
