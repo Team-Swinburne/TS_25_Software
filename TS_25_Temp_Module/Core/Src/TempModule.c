@@ -162,7 +162,7 @@ void CalculateTemperature()
 
 void UpdateAnalogue()
 {
-	uint16_t TempBankVDD[6] = {TB1_VDD, TB2_VDD, TB3_VDD, TB4_VDD, TB5_VDD};
+	uint16_t TempBankVDD[5] = {TB1_VDD, TB2_VDD, TB3_VDD, TB4_VDD, TB5_VDD};
 	uint8_t test[2] = { 0xAA, 0xAA};
 	uint8_t testRX[2] = { 0, 0 };
 

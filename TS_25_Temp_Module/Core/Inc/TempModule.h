@@ -77,7 +77,7 @@ typedef struct TempModuleInfo
     uint16_t dbgLedPin;
 
     //SPI ADC analogue inputs
-    ADS7028_HandleTypeDef ADC_Bank[6];
+    ADS7028_HandleTypeDef ADC_Bank[5];
 } TempModuleInfo_t;
 
 extern TempModuleInfo_t TempModule;
