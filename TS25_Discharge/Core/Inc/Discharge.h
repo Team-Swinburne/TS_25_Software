@@ -18,8 +18,8 @@
 #define DISCHARGE_DIGITAL_CAN_RATE 50 // 50ms
 
 // Will need to be replaced with new sample
-#define HV_R1 1314000
-#define HV_R2 6660
+#define HV_R1 13200000
+#define HV_R2 15000
 #define THERM_BIAS_RESIS 1982
 #define PDOC_VDD 3394.0 //3.394 mV
 #define HV_SENSE_VDD 3351.0 //3.351 mV
