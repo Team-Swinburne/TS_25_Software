@@ -88,7 +88,7 @@ void UpdateAnalogue()
 	writeSingleRegister(&Discharge.HVSense_ADC, CHANNEL_SEL_ADDRESS, 6);
 	spiSendReceiveArray(&Discharge.HVSense_ADC, test, testRX, 2);
 	Discharge.HV_Sense_Raw_Voltage = (HV_SENSE_VDD*(((256*(testRX[0]) + (testRX[1])) >> 4)/4096.0));
-	Discharge.MC_Voltage = ((HV_R1+HV_R2)/(HV_R2))*(Discharge.HV_Sense_Raw_Voltage/1000.0)*10;
+	Discharge.MC_Voltage = ((HV_R1+HV_R2)/(HV_R2))*(Discharge.HV_Sense_Raw_Voltage/1000.0);
 	Discharge.MC_Voltage = ((Discharge.MC_Voltage + 1.58)/1.038) + 14;
 
 	//Read HV sense input
