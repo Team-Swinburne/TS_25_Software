@@ -10,6 +10,9 @@
 DischargeInfo_t Discharge;
 uint16_t ThermistorResistance;
 
+/*
+ * This flashes a blinking light which is way of checking that the PCB is running
+ */
 void TransmitHeartBeat()
 {
 	//Increment counter by 1, if 255 forced to 0
@@ -29,6 +32,9 @@ void TransmitHeartBeat()
 	HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &Discharge.canHeartBeat.TxHeader, Discharge.canHeartBeat.TxData);
 }
 
+/*
+ * This formats and sends the digital data to the CAN Bus
+ */
 void TransmitDigital()
 {
 	Discharge.canDigital.TxData[0] = Discharge.DischargeDisable;
@@ -38,6 +44,9 @@ void TransmitDigital()
 	HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &Discharge.canDigital.TxHeader, Discharge.canDigital.TxData);
 }
 
+/**
+ * This reads all of the digital inputs
+ **/
 void UpdateDigital()
 {
 	Discharge.DischargeDisable = HAL_GPIO_ReadPin(Discharge.DischargeDisableInPort, Discharge.DischargeDisableInPin);
@@ -45,9 +54,9 @@ void UpdateDigital()
 	Discharge.PDOC_ok = HAL_GPIO_ReadPin(Discharge.PDOCokInPort, Discharge.PDOCokInPin);
 }
 
-/**
- * Sets flag to enable the transmission of the Analogue frames.
-**/
+/*
+ * This formats and sends the analogue data to the CAN Bus
+ */
 void TransmitAnalogue()
 {
 	Discharge.canAnalogue.TxData[0] = (Discharge.MC_Voltage >> 8);
@@ -62,9 +71,9 @@ void TransmitAnalogue()
 		HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &Discharge.canAnalogue.TxHeader, Discharge.canAnalogue.TxData);
 }
 
-/**
- * Sets flag to enable the transmission of the Analogue RAW frames.
-**/
+/*
+ * This formats and sends the raw analogue data to the CAN Bus
+ */
 void TransmitAnalogueRaw()
 {
 	Discharge.canAnalogueRaw.TxData[0] = (Discharge.HV_Sense_Raw_Voltage >> 8);
@@ -79,6 +88,9 @@ void TransmitAnalogueRaw()
 		HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &Discharge.canAnalogueRaw.TxHeader, Discharge.canAnalogueRaw.TxData);
 	}
 
+/*
+ * This reads all the analogue sensors e.g HV sense, PDOC sense, and Temperature
+ */
 void UpdateAnalogue()
 {
 	uint8_t test[2] = { 0xAA, 0xAA};
@@ -174,6 +186,9 @@ void canFramesDefine()
 	Discharge.canAnalogueRaw.TxData[7] = 0;
 }
 
+/*
+ * This assigns the inputs, outputs and SPI's to their pin on the board
+ */
 void ioAssign()
 {
 	//SPI
@@ -205,13 +220,16 @@ void ioAssign()
 	Discharge.PDOCokInPin = GPIO_PIN_15;
 }
 
+/*
+ * Initialises the SPI ADC's with a delay between them
+ */
 void initialiseADC()
 {
-	HAL_Delay(50);
+	HAL_Delay(50); /* 50ms */
 
 	initADS7028(&Discharge.PDOC_ADC);
-	HAL_Delay(50);
+	HAL_Delay(50); /* 50ms */
 	initADS7028(&Discharge.HVSense_ADC);
 
-	HAL_Delay(1000);
+	HAL_Delay(1000); /* 1000ms */
 }
