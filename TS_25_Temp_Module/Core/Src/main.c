@@ -117,11 +117,12 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  UpdateAnalogue();
-	  TransmitCAN();
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  UpdateAnalogue();
+	  TransmitCAN();
   }
   /* USER CODE END 3 */
 }
@@ -376,9 +377,11 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+	  return;
   }
   /* USER CODE END Error_Handler_Debug */
 }
+
 #ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
