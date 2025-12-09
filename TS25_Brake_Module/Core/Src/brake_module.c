@@ -9,6 +9,7 @@
 
 BrakeModuleInfo_t BrakeModule;
 
+//This flashes a blinking light which is way of checking that the PCB is running
 void TransmitHeartBeat()
 {
 	//Increment counter by 1, if 255 force to 0
@@ -33,6 +34,7 @@ void TransmitHeartBeat()
 
 }
 
+//This formats and sends the digital data to the CAN Bus
 void TransmitDigital()
 {
 	BrakeModule.canDigital.TxData[0] = BrakeModule.HighPressure;
@@ -46,6 +48,7 @@ void TransmitDigital()
 	HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &BrakeModule.canDigital.TxHeader, BrakeModule.canDigital.TxData);
 }
 
+//This reads all of the digital inputs
 void UpdateDigital()
 {
 	if (BrakeModule.LowPressureRaw >= 3300) {
@@ -118,6 +121,7 @@ void UpdateDigitalRaw()
 
 }
 
+//prepares the CAN messages and sends them through
 void TransmitAnalogue()
 {
 	BrakeModule.canAnalogue.TxData[0] = (BrakeModule.Brake1_RawInt >> 8);
@@ -225,6 +229,7 @@ void canFramesDefine()
 	BrakeModule.canAnalogue.TxData[7] = 0;
 }
 
+//This assigns the inputs, outputs and communication between the microcontroller and ADC to their pin on the board
 void ioAssign()
 {
 	//anything else needed here?
@@ -260,6 +265,7 @@ void ioAssign()
 	BrakeModule.FiveKWInPin = GPIO_PIN_5;
 }
 
+//Initialises the communication between the microcontroller and the ADC with a delay between them
 void initialiseADC()
 {
 	HAL_Delay(50);

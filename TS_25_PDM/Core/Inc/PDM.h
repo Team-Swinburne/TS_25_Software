@@ -78,22 +78,26 @@ typedef struct canFrame
 	uint8_t 			transmitFlag; //1 = Ready to transmit
 } canFrame_t;
 
+//This will find the current and duty cycles commanded to the PDM
 typedef struct HighSideDriverReceive {
     uint16_t Current;	//current, 0.001A resolution
     uint8_t DutyCycle;
 } HighSideReceive_t;
 
+//This will configure and set the current and duty cycle to the PDM
 typedef struct HighSideDriverConf {
     uint16_t Current;	//current, 0.001A resolution
     uint8_t DutyCycle;
 } HighSideDriver_t;
 
+//Groups the commanded and configured state for both channels of a dual HSD chip
 typedef struct hsdToggle
 {
 	HighSideReceive_t Grab[2];
     HighSideDriver_t Driver[2];
 } hsdToggle_t;
 
+// Defines the digital output pins associated with a dual HSD.
 typedef struct hsdOutput {
 	uint8_t OutputA; 	//digital out
     uint8_t OutputB; 	//digital out
@@ -108,22 +112,23 @@ typedef struct PDMInfo {
 	uint8_t HeartBeatState; //0 = fine
     uint8_t HeartBeatCounter;
 
-    uint8_t GL_Active;
-    uint8_t BL_Active;
+    uint8_t GL_Active; //Green light output
+    uint8_t BL_Active; //Blue light output
 
-    hsdOut_t Drivers[5];
-    hsdToggle_t driverSwitch[5];
+    hsdOut_t Drivers[5]; //Array of 5 HSD output configurations
+    hsdToggle_t driverSwitch[5]; //Array of 5 HSD command/config structures
 
+    //Transmission CAN Frames
     canFrame_t canHeartBeat;
-    canFrame_t canDigital;
     canFrame_t canDriverOut[5];
     canFrame_t canDriverDiag[5];
 
-    uint8_t diagBrkLght;
-    uint8_t diagInverter;
-    uint8_t diagDschrg;
-    uint8_t diagNMEA;
-    uint8_t diagAccum;
+    //Status Flags
+    uint8_t diagBrkLght; //Break Light
+    uint8_t diagInverter; //Inverter
+    uint8_t diagDschrg; //Discharge
+    uint8_t diagNMEA; //NMEA "Data Acquisition" Loom
+    uint8_t diagAccum; //Accumulator
 
     //Digital Ports and Pins
     GPIO_TypeDef* GL_ActivePort;

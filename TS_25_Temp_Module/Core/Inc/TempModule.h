@@ -52,10 +52,10 @@ typedef struct canFrame {
 } canFrame_t;
 
 typedef struct tempBank {
-	int8_t Temperature[8];
-	uint16_t RawVoltages[8];
-    uint32_t RawVoltagesSum[8];
-    uint16_t RawVoltageCount[8];
+	int8_t Temperature[8];  //An array of calculated temperatures
+	uint16_t RawVoltages[8]; //An array of the most recent raw voltages
+    uint32_t RawVoltagesSum[8]; //The sum of the raw voltages
+    uint16_t RawVoltageCount[8]; //The number count of raw voltage readings
 } tempBank_t;
 
 typedef struct TempModuleInfo

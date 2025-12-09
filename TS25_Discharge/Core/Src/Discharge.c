@@ -187,7 +187,7 @@ void canFramesDefine()
 }
 
 /*
- * This assigns the inputs, outputs and SPI's to their pin on the board
+ * This assigns the inputs, outputs and communication between the microcontroller and ADC to their pin on the board
  */
 void ioAssign()
 {
@@ -221,7 +221,7 @@ void ioAssign()
 }
 
 /*
- * Initialises the SPI ADC's with a delay between them
+ * Initialises the communication between the microcontroller and the ADC with a delay between them
  */
 void initialiseADC()
 {

@@ -11,6 +11,8 @@ PDMInfo_t PDM;
 FDCAN_RxHeaderTypeDef RxHeader;
 uint8_t RxData[8];
 
+
+//This looks and processes received CAN messages
 void CheckReceivedCAN()
 {
 
@@ -36,6 +38,7 @@ void CheckReceivedCAN()
 
 }
 
+//This updates the duty cycles for all controlled loads
 void updatePWM()
 {
 	//Pump 1
@@ -69,6 +72,7 @@ void updatePWM()
 	PDM.diagBrkLght = PDM.driverSwitch[4].Grab[HSD_B].DutyCycle;
 }
 
+//This flashes a blinking light to display that the board is running
 void TransmitHeartBeat()
 {
 	//Increment counter by 1, if 255 forced to 0
@@ -88,6 +92,7 @@ void TransmitHeartBeat()
 	PDM.canHeartBeat.transmitFlag = 1;
 }
 
+//This formats and sends the digital CAN messages
 void TransmitDigital()
 {
 	PDM.canDigital.TxData[0] = PDM.GL_Active;
@@ -96,12 +101,14 @@ void TransmitDigital()
 	PDM.canDigital.transmitFlag = 1;
 }
 
+//This reads the state of the digital inputs
 void UpdateDigital()
 {
 	PDM.GL_Active = HAL_GPIO_ReadPin(PDM.GL_ActivePort, PDM.GL_ActivePin);
 	PDM.BL_Active = HAL_GPIO_ReadPin(PDM.BL_ActivePort, PDM.BL_ActivePin);
 }
 
+//This reads the state of the driver output CAN messages
 void TransmitDriverOut()
 {
 
@@ -114,6 +121,7 @@ void TransmitDriverOut()
 	}
 }
 
+//This writes the outputs states to the HSD
 void UpdateDriverOut()
 {
 	HAL_GPIO_WritePin(PDM.Drivers[3].OutputBPort, PDM.Drivers[3].OutputBPin, 1); //Discharge
@@ -157,6 +165,7 @@ void UpdateDriverOut()
 	}
 }
 
+//This sends any pending CAN messages by checking the flags and Fifo free levels
 void TransmitCAN()
 {
 	if ((HAL_FDCAN_GetTxFifoFreeLevel(PDM.canHeartBeat.canPeripheral) == 3) && (PDM.canHeartBeat.transmitFlag == 1))
@@ -181,6 +190,7 @@ void TransmitCAN()
 	}
 }
 
+//
 void canFramesDefine()
 {
 	//Heartbeat
@@ -214,6 +224,7 @@ void canFramesDefine()
 	}
 }
 
+//This assigns the inputs, outputs and communication between the microcontroller and ADC to their pin on the board
 void ioAssign()
 {
 	//SPI
@@ -263,6 +274,7 @@ void ioAssign()
 	PDM.Drivers[4].OutputBPin = GPIO_PIN_6; //Brake Light
 }
 
+//Initialises the communication between the microcontroller and the ADC with a delay between them
 void initialiseADC()
 {
 	HAL_Delay(50);

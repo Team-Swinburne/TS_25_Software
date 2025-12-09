@@ -228,6 +228,7 @@ void canFramesDefine()
 	}
 }
 
+//This assigns the inputs, outputs and communication between the microcontroller and ADC to their pin on the board
 void ioAssign()
 {
 	//Temp Bank 1
@@ -267,6 +268,7 @@ void ioAssign()
 	HAL_GPIO_WritePin(TempModule.dbgLedPort, TempModule.dbgLedPin, GPIO_PIN_RESET); //LED on (default)
 }
 
+//Initialises the communication between the microcontroller and the ADC with a delay between them
 void initialiseADC()
 {
 	HAL_Delay(50);
